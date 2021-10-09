@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { INITIAL_EVENTS, createEventId } from "../../fakeDb/event-utils";
+import { FAKE_USERS } from "../../fakeDb/fakeUsers";
 import CustomUtil from "../../helpers/CustomUtil";
-import Picker from "react-calendar";
-import pickDates from "./pickDates";
 import dateHighLight from "./dateHighLight";
-
-const monthArr = [];
-
-monthArr.push("select");
-for (let i = 1; i <= 31; i++) {
-  monthArr.push(i.toString());
-}
-monthArr.push("month end");
+import TypeSpecific from "./TypeSpecific";
+import _ from "lodash";
+import Checkbox from "@mui/material/Checkbox";
 
 function EventForm({ payloadProp, closeModalProp }) {
   const initialForm = {
@@ -19,25 +13,30 @@ function EventForm({ payloadProp, closeModalProp }) {
     title: null,
     description: null,
     type: "once",
-    duration: [],
+    duration: [
+      CustomUtil.formatTimelessDate(
+        payloadProp.event_obj.date.toDateString(),
+        true
+      ),
+      CustomUtil.formatTimelessDate(
+        payloadProp.event_obj.date.toDateString(),
+        true
+      ),
+    ],
     days: [],
+    assignee: { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
+    points: null,
+    completed: false,
+    color: null,
   };
   const [formValue, setFormValue] = useState(initialForm);
 
   useEffect(() => {
+    console.log("EventForm formValue: ");
+    console.log(formValue);
     dateHighLight(formValue.duration);
   });
-  useEffect(() => {
-    setFormValue({
-      ...formValue,
-      duration: [
-        CustomUtil.formatTimelessDate(
-          payloadProp.event_obj.date.toDateString(),
-          true
-        ),
-      ],
-    });
-  }, []);
+
   const onFormChange = (values) => {
     setFormValue(values);
   };
@@ -80,189 +79,112 @@ function EventForm({ payloadProp, closeModalProp }) {
       }}
     >
       <div style={{ display: "flex" }}>
-        <input
-          name="title"
-          placeholder="title"
-          value={formValue.title || ""}
-          type="text"
-          onChange={(e) => {
-            onFormChange({ ...formValue, title: e.target.value });
-          }}
-        />
-        <textarea
-          name="description"
-          placeholder="description"
-          value={formValue.description}
-          onChange={(e) => {
-            onFormChange({ ...formValue, description: e.target.value });
-          }}
-        />
-        <select
-          id="select"
-          onChange={(e) => setFormValue({ ...formValue, type: e.target.value })}
-        >
-          <option value="once">once</option>
-          <option value="monthly">monthly</option>
-          <option value="weekly">weekly</option>
-        </select>
-      </div>
-
-      {formValue.type === "once" ? (
-        <div style={{ display: "flex" }}>
-          <div>
-            <p>
-              Start date:{" "}
-              {formValue.duration[0] ? (
-                <span> {formValue.duration[0]}</span>
-              ) : (
-                <span> ?</span>
-              )}
-            </p>
-            <div className="pick_start">
-              <Picker
-                // activeStartDate={payloadProp.event_obj.date}
-                defaultActiveStartDate={
-                  formValue.duration[0] && new Date(formValue.duration[0])
-                }
-                //   onChange={(date: any) => pickDates(date, true)}
-                onChange={
-                  (date) => {
-                    let new_duration = pickDates(
-                      date,
-                      [...formValue.duration],
-                      true
-                    );
-
-                    new_duration &&
-                      onFormChange({ ...formValue, duration: new_duration });
-                  }
-                  // "duration", new_duration
-                }
-              />
-            </div>
-          </div>
-
-          <div>
-            <p>
-              End date:{" "}
-              {formValue.duration[1] ? (
-                <span> {formValue.duration[1]}</span>
-              ) : (
-                <span> ?</span>
-              )}
-            </p>
-
-            <div className="pick_end">
-              <Picker
-                defaultActiveStartDate={
-                  formValue.duration[0] && new Date(formValue.duration[0])
-                }
-                onChange={
-                  (date) => {
-                    let new_duration = pickDates(
-                      date,
-                      [...formValue.duration],
-                      false
-                    );
-
-                    new_duration &&
-                      onFormChange({ ...formValue, duration: new_duration });
-                  }
-                  // "duration", new_duration
-                }
-              />
-            </div>
-          </div>
-        </div>
-      ) : formValue.type === "monthly" ? (
         <div>
-          <div style={{ display: "flex" }}>
-            days:
-            {formValue.days.map((d) => {
-              return <p>{d},</p>;
-            })}
-          </div>
-          <select
-            name="days"
+          <input
+            name="title"
+            placeholder="title"
+            value={formValue.title || ""}
+            type="text"
             onChange={(e) => {
-              if (
-                e.target.value !== "select" &&
-                !formValue.days.includes(parseInt(e.target.value))
-              ) {
-                const new_days = [...formValue.days, parseInt(e.target.value)];
-
-                setFormValue({ ...formValue, days: new_days });
-              }
+              onFormChange({ ...formValue, title: e.target.value });
             }}
-          >
-            {monthArr.map((day) => {
-              return <option key={day}>{day}</option>;
-            })}
-          </select>
-        </div>
-      ) : (
-        <div>
-          <div style={{ display: "flex" }}>
-            days:
-            {formValue.days.map((d) => {
-              let day_str;
-
-              switch (d) {
-                case 0:
-                  day_str = "Sun";
-                  break;
-                case 1:
-                  day_str = "Mon";
-                  break;
-                case 2:
-                  day_str = "Tue";
-                  break;
-                case 3:
-                  day_str = "Wed";
-                  break;
-                case 4:
-                  day_str = "Thu";
-                  break;
-                case 5:
-                  day_str = "Fri";
-                  break;
-                case 6:
-                  day_str = "Sat";
-                  break;
-                default:
-                  break;
-              }
-
-              return <p>{day_str},</p>;
-            })}
-          </div>
-          <select
-            name="weekdays"
+          />
+          <textarea
+            name="description"
+            placeholder="description"
+            value={formValue.description || ""}
             onChange={(e) => {
-              if (
-                e.target.value !== "select" &&
-                !formValue.days.includes(parseInt(e.target.value))
-              ) {
-                const new_days = [...formValue.days, parseInt(e.target.value)];
+              onFormChange({ ...formValue, description: e.target.value });
+            }}
+          />
+
+          <div>
+            <label htmlFor="select_assignee">Assignee</label>
+            <select
+              id="select_assignee"
+              onChange={(e) => {
+                const full_user = _.filter(FAKE_USERS, (u) => {
+                  return u.id === parseInt(e.target.value);
+                });
+
+                const assignee = {
+                  id: full_user[0].id,
+                  username: full_user[0].username,
+                };
+
                 setFormValue({
                   ...formValue,
-                  days: new_days,
+                  assignee,
                 });
-              }
-            }}
+              }}
+            >
+              {FAKE_USERS.map((u) => {
+                return <option value={u.id}>{u.username}</option>;
+              })}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="select_frequency">Frequency</label>
+          <select
+            id="select_frequency"
+            onChange={(e) =>
+              setFormValue({ ...formValue, type: e.target.value })
+            }
           >
-            <option value="select">select</option>
-            <option value={0}>Sunday</option>
-            <option value={1}>Monday</option>
-            <option value={2}>Tuesday</option>
-            <option value={3}>Wednesday</option>
-            <option value={4}>Thursday</option>
-            <option value={5}>Friday</option>
-            <option value={6}>Saturday</option>
+            <option value="once">once</option>
+            <option value="monthly">monthly</option>
+            <option value="weekly">weekly</option>
           </select>
         </div>
-      )}
 
+        <div>
+          <label htmlFor="select_points">Points</label>
+          <select
+            id="select_points"
+            onChange={(e) =>
+              setFormValue({ ...formValue, points: e.target.value })
+            }
+          >
+            <option value="">N/A</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="select_completion">Completed</label>
+          <Checkbox
+            checked={formValue.completed}
+            onChange={(e) => {
+              console.log("666666666666666666");
+              console.log(formValue.completed);
+              setFormValue({ ...formValue, completed: !formValue.completed });
+            }}
+            name="select_completion"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="select_points">Color</label>
+          <select
+            id="select_points"
+            onChange={(e) =>
+              setFormValue({ ...formValue, color: e.target.value })
+            }
+          >
+            <option value="">N/A</option>
+            <option value="lightgreen">green</option>
+            <option value="lightcoral">red</option>
+            <option value="yellow">yellow</option>
+            <option value="lightblue">blue</option>
+          </select>
+        </div>
+      </div>
+
+      <TypeSpecific onFormChange={onFormChange} formValue={formValue} />
       <button type="submit">Submit</button>
     </form>
   );

@@ -1,4 +1,5 @@
 import CustomUtil from "../helpers/CustomUtil";
+import { FAKE_USERS } from "./fakeUsers";
 
 let eventGuid = 0;
 let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
@@ -20,6 +21,10 @@ export const INITIAL_EVENTS = [
       CustomUtil.formatTimelessDate(new Date().toDateString(), true),
     ],
     days: [],
+    assignee: { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
+    points: 30,
+    completed: true,
+    color: "yellow",
   },
   {
     id: createEventId(),
@@ -34,6 +39,10 @@ export const INITIAL_EVENTS = [
       }),
     ],
     days: [],
+    assignee: { id: FAKE_USERS[1].id, username: FAKE_USERS[1].username },
+    points: "",
+    completed: false,
+    color: null,
   },
   {
     id: createEventId(),
@@ -41,6 +50,10 @@ export const INITIAL_EVENTS = [
     type: "monthly",
     description: "Monthly event description here",
     days: [15, "month end"],
+    assignee: { id: FAKE_USERS[2].id, username: FAKE_USERS[2].username },
+    points: 20,
+    completed: true,
+    color: "lightgreen",
   },
   {
     id: createEventId(),
@@ -48,6 +61,10 @@ export const INITIAL_EVENTS = [
     type: "weekly",
     description: "Weely event description here",
     days: [6],
+    assignee: { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
+    points: 10,
+    completed: false,
+    color: "lightcoral",
   },
 ];
 

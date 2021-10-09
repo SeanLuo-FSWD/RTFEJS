@@ -34,7 +34,13 @@ function TaskList() {
       return getTasksforDay(calDate, true, ele);
     }).map((ele) => {
       const item = (
-        <button onClick={(e) => setDetailModal(e, ele.id)}>{ele.title}</button>
+        // <button onClick={(e) => setDetailModal(e, ele.id)}>{ele.title}</button>
+        <div
+          style={{ backgroundColor: ele.color, border: "thin solid black" }}
+          onClick={(e) => setDetailModal(e, ele.id)}
+        >
+          {ele.title}
+        </div>
       );
 
       const hasEvents = getTasksforDay(calDate, item, ele);

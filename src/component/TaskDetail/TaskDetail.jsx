@@ -17,6 +17,8 @@ const customStyles = {
   },
 };
 
+Modal.setAppElement("#root");
+
 function TaskModal({
   isOpenProp,
   closeModalProp,
@@ -24,6 +26,9 @@ function TaskModal({
   payloadProp,
 }) {
   let modal;
+
+  console.log("2222222222222222");
+  console.log(payloadProp.event_obj);
 
   switch (isOpenProp) {
     case "event":
@@ -34,8 +39,17 @@ function TaskModal({
           style={customStyles}
         >
           <form>
-            <p>Title: {payloadProp.event_obj.title}</p>
+            <p
+              style={{
+                backgroundColor: payloadProp.event_obj.color,
+              }}
+            >
+              Title: {payloadProp.event_obj.title}
+            </p>
             <p>Description: {payloadProp.event_obj.description}</p>
+            <p>Assignee: {payloadProp.event_obj.assignee.username}</p>
+            <p>Points: {payloadProp.event_obj.points}</p>
+            <p>Completed: {`${payloadProp.event_obj.completed}`}</p>
 
             {payloadProp.duration && (
               <div>
@@ -53,7 +67,7 @@ function TaskModal({
       // add new modal.
       modal = (
         <Modal
-        isOpen={isOpenProp ? true : false}
+          isOpen={isOpenProp ? true : false}
           style={customStyles}
           onAfterOpen={onAfterOpenProp}
           onRequestClose={closeModalProp}
