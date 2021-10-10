@@ -1,6 +1,7 @@
 import React from "react";
 import Picker from "react-calendar";
 import pickDates from "./pickDates";
+import Checkbox from "@mui/material/Checkbox";
 
 const monthArr = [];
 
@@ -13,13 +14,13 @@ monthArr.push("month end");
 function TypeSpecific({ formValue, onFormChange }) {
   return (
     <div>
-      {formValue.type === "once" ? (
+      {formValue.shared.type === "once" ? (
         <div style={{ display: "flex" }}>
           <div>
             <p>
               Start date:{" "}
-              {formValue.duration[0] ? (
-                <span>{formValue.duration[0]}</span>
+              {formValue.once.duration[0] ? (
+                <span>{formValue.once.duration[0]}</span>
               ) : (
                 <span> ?</span>
               )}
@@ -27,17 +28,21 @@ function TypeSpecific({ formValue, onFormChange }) {
             <div className="pick_start">
               <Picker
                 defaultActiveStartDate={
-                  formValue.duration[0] && new Date(formValue.duration[0])
+                  formValue.once.duration[0] &&
+                  new Date(formValue.once.duration[0])
                 }
                 onChange={(date) => {
                   let new_duration = pickDates(
                     date,
-                    [...formValue.duration],
+                    [...formValue.once.duration],
                     true
                   );
 
                   new_duration &&
-                    onFormChange({ ...formValue, duration: new_duration });
+                    onFormChange({
+                      ...formValue,
+                      once: { ...formValue.once, duration: new_duration },
+                    });
                 }}
               />
             </div>
@@ -46,8 +51,8 @@ function TypeSpecific({ formValue, onFormChange }) {
           <div>
             <p>
               End date:{" "}
-              {formValue.duration[1] ? (
-                <span> {formValue.duration[1]}</span>
+              {formValue.once.duration[1] ? (
+                <span> {formValue.once.duration[1]}</span>
               ) : (
                 <span> ?</span>
               )}
@@ -56,27 +61,49 @@ function TypeSpecific({ formValue, onFormChange }) {
             <div className="pick_end">
               <Picker
                 defaultActiveStartDate={
-                  formValue.duration[0] && new Date(formValue.duration[0])
+                  formValue.once.duration[0] &&
+                  new Date(formValue.once.duration[0])
                 }
                 onChange={(date) => {
                   let new_duration = pickDates(
                     date,
-                    [...formValue.duration],
+                    [...formValue.once.duration],
                     false
                   );
 
                   new_duration &&
-                    onFormChange({ ...formValue, duration: new_duration });
+                    onFormChange({
+                      ...formValue,
+                      once: { ...formValue.once, duration: new_duration },
+                    });
                 }}
               />
             </div>
           </div>
+
+          <div>
+            <label htmlFor="select_completion">Completed</label>
+            <Checkbox
+              checked={formValue.once.completed}
+              onChange={(e) => {
+                e.preventDefault();
+                onFormChange({
+                  ...formValue,
+                  once: {
+                    ...formValue.once,
+                    completed: !formValue.once.completed,
+                  },
+                });
+              }}
+              name="select_completion"
+            />
+          </div>
         </div>
-      ) : formValue.type === "monthly" ? (
+      ) : formValue.shared.type === "monthly" ? (
         <div>
           <div style={{ display: "flex" }}>
             days:
-            {formValue.days.map((d) => {
+            {formValue.template.days.map((d) => {
               return <p>{d},</p>;
             })}
           </div>
@@ -85,11 +112,16 @@ function TypeSpecific({ formValue, onFormChange }) {
             onChange={(e) => {
               if (
                 e.target.value !== "select" &&
-                !formValue.days.includes(parseInt(e.target.value))
+                !formValue.template.days.includes(parseInt(e.target.value))
               ) {
-                const new_days = [...formValue.days, parseInt(e.target.value)];
-
-                onFormChange({ ...formValue, days: new_days });
+                const new_days = [
+                  ...formValue.template.days,
+                  parseInt(e.target.value),
+                ];
+                onFormChange({
+                  ...formValue,
+                  template: { ...formValue.template, days: new_days },
+                });
               }
             }}
           >
@@ -102,7 +134,7 @@ function TypeSpecific({ formValue, onFormChange }) {
         <div>
           <div style={{ display: "flex" }}>
             days:
-            {formValue.days.map((d) => {
+            {formValue.template.days.map((d) => {
               let day_str;
 
               switch (d) {
@@ -139,12 +171,15 @@ function TypeSpecific({ formValue, onFormChange }) {
             onChange={(e) => {
               if (
                 e.target.value !== "select" &&
-                !formValue.days.includes(parseInt(e.target.value))
+                !formValue.template.days.includes(parseInt(e.target.value))
               ) {
-                const new_days = [...formValue.days, parseInt(e.target.value)];
+                const new_days = [
+                  ...formValue.template.days,
+                  parseInt(e.target.value),
+                ];
                 onFormChange({
                   ...formValue,
-                  days: new_days,
+                  template: { ...formValue.template, days: new_days },
                 });
               }
             }}

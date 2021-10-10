@@ -12,21 +12,11 @@ const dateCellRender = (date, setModal) => {
 
   const day_tasks = _.filter(EVENTS, (task) => {
     const task_date = new Date(task.duration[0]);
-    console.log("????????");
-    console.log("task_date: " + task_date.toString());
-    console.log("calDate: " + calDate.toString());
-
-    console.log(task_date.getTime() == calDate.getTime());
-
     // return task_date == calDate && task.type != "once";
     return task_date.getTime() == calDate.getTime();
 
     // return u.id === parseInt(e.target.value);
   });
-
-  if (day_tasks.length > 0) {
-    console.log("..................................");
-  }
 
   const day_templateIds = day_tasks.map((task) => {
     return task.templateId;
@@ -34,8 +24,9 @@ const dateCellRender = (date, setModal) => {
 
   let ele_arr = null;
 
-  // Need to push to events here.
-
+  /*
+    Adding reoccuring tasks to EVENTS here.
+  */
   const getCreateTasks = () => {
     TASK_TEMPLATES.forEach((task) => {
       task.days.forEach((day) => {
@@ -47,23 +38,22 @@ const dateCellRender = (date, setModal) => {
             unified_day = CustomUtil.getMonthLastDate(calDate);
           }
         } else {
-          // weekly here
+          /* weekly task */
           cell_day = calDate.getDay();
         }
 
-        console.log("sssssssssssssssssssssssss________");
-        console.log(cell_day);
-        console.log(unified_day);
-        console.log("_______sssssssssssssssssssssssss");
-        console.log(day_templateIds);
-        console.log(task.id);
-        console.log(!day_templateIds.includes(task.id));
-        console.log("________________________________");
-
-        // what if Oct matched with Nov? If have one have it, then problem.
-        if (cell_day == unified_day && !day_templateIds.includes(task.id)) {
-          console.log("puuuuuuuuuush");
-          EVENTS.push({
+        /*
+          Add new reoccuring task on calendar month change, must match conditions:
+          1. "cell_day == unified_day" : Day of cell equal day specified on the task, whether weekly or monthly.
+          2. "!day_templateIds.includes(task.id)" : Must not be already created previously. 
+          3. "calDate >= new Date()" : Must be today or a future date.
+        */
+        if (
+          cell_day == unified_day &&
+          !day_templateIds.includes(task.id) &&
+          calDate >= new Date()
+        ) {
+          let submit_obj = {
             id: createEventId(),
             templateId: task.id,
             title: task.title,
@@ -73,24 +63,20 @@ const dateCellRender = (date, setModal) => {
               CustomUtil.formatTimelessDate(calDate.toDateString(), true),
               CustomUtil.formatTimelessDate(calDate.toDateString(), true),
             ],
-            days: [],
             // to update below
-            assignee: {
-              id: FAKE_USERS[2].id,
-              username: FAKE_USERS[2].username,
-            },
+            assignees: task.assignees,
             points: task.points,
             completed: false,
             color: task.color,
-          });
+          };
+
+          EVENTS.push(submit_obj);
         }
       });
     });
   };
 
   getCreateTasks();
-  console.log("444444444444444444---------");
-  console.log(EVENTS);
 
   ele_arr = EVENTS.map((ele) => {
     const item = (

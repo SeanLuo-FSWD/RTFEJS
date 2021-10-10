@@ -27,8 +27,15 @@ function TaskModal({
 }) {
   let modal;
 
-  console.log("2222222222222222");
+  console.log("TaskModal - payloadProp.event_obj : ");
   console.log(payloadProp.event_obj);
+
+  const displayAssignees = () => {
+    let assignees = payloadProp.event_obj.assignees.map((user) => {
+      return <p>{user.username}</p>;
+    });
+    return assignees;
+  };
 
   switch (isOpenProp) {
     case "event":
@@ -47,7 +54,8 @@ function TaskModal({
               Title: {payloadProp.event_obj.title}
             </p>
             <p>Description: {payloadProp.event_obj.description}</p>
-            <p>Assignee: {payloadProp.event_obj.assignee.username}</p>
+            <div>Assignees: {displayAssignees()}</div>
+
             <p>Points: {payloadProp.event_obj.points}</p>
             <p>Completed: {`${payloadProp.event_obj.completed}`}</p>
 

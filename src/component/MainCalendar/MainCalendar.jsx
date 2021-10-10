@@ -21,6 +21,8 @@ function MainCalendar() {
     main_cell_click = false;
     colorMainCal();
     set_ForceUpdate(false);
+    console.log("MainCalendar - EVENTS : ");
+    console.log(EVENTS);
   });
 
   useEffect(() => {
@@ -62,7 +64,7 @@ function MainCalendar() {
   };
 
   return (
-    <div id="calendarMain">
+    <div id="calendarMain" className="antd_styling">
       <Calendar
         dateCellRender={(date) => dateCellRender(date, setDetailModal)}
         onSelect={(date) => onSelect(date, setFormModal)}

@@ -9,7 +9,10 @@ export const TASK_TEMPLATES = [
     type: "monthly",
     description: "Monthly event description here",
     days: [15, "month end"],
-    assignees: [{ id: FAKE_USERS[2].id, username: FAKE_USERS[2].username }],
+    assignees: [
+      { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
+      { id: FAKE_USERS[2].id, username: FAKE_USERS[2].username },
+    ],
     points: 20,
     color: "lightgreen",
   },

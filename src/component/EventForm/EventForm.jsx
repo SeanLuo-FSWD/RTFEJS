@@ -1,41 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { EVENTS, createEventId } from "../../fakeDb/events";
 import { FAKE_USERS } from "../../fakeDb/fakeUsers";
+import { TASK_TEMPLATES, createTemplateId } from "../../fakeDb/task_templates";
 import CustomUtil from "../../helpers/CustomUtil";
 import dateHighLight from "./dateHighLight";
 import TypeSpecific from "./TypeSpecific";
 import _ from "lodash";
-import Checkbox from "@mui/material/Checkbox";
+import { Transfer } from "antd";
 
 function EventForm({ payloadProp, closeModalProp }) {
   const initialForm = {
-    id: null,
-    title: null,
-    description: null,
-    type: "once",
-    duration: [
-      CustomUtil.formatTimelessDate(
-        payloadProp.event_obj.date.toDateString(),
-        true
-      ),
-      CustomUtil.formatTimelessDate(
-        payloadProp.event_obj.date.toDateString(),
-        true
-      ),
-    ],
-    days: [],
-    assignee: { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
-    points: null,
-    completed: false,
-    color: null,
+    shared: {
+      title: "",
+      description: "",
+      type: "once",
+      points: null,
+      color: null,
+      // To fix this
+      assignees: [{ id: FAKE_USERS[0].id, username: FAKE_USERS[0].username }],
+    },
+    once: {
+      duration: [
+        CustomUtil.formatTimelessDate(
+          payloadProp.event_obj.date.toDateString(),
+          true
+        ),
+        CustomUtil.formatTimelessDate(
+          payloadProp.event_obj.date.toDateString(),
+          true
+        ),
+      ],
+      completed: false,
+    },
+    template: {
+      days: [],
+    },
   };
   const [formValue, setFormValue] = useState(initialForm);
+
+  const [transferVal, setTransferVal] = useState(["1", "2", "3"]);
 
   useEffect(() => {
     console.log("EventForm formValue: ");
     console.log(formValue);
-    dateHighLight(formValue.duration);
+    dateHighLight(formValue.once.duration);
   });
+
+  const onTransferChange = (params, d, mk) => {
+    console.log("777777777777777777777 onTransferChange");
+    console.log(params);
+    console.log(d);
+    console.log(mk);
+  };
+
+  const onSelectChange = (ssk, tsk) => {
+    console.log("666666666666666666");
+    console.log(ssk);
+    console.log(tsk);
+  };
 
   const onFormChange = (values) => {
     setFormValue(values);
@@ -43,41 +65,39 @@ function EventForm({ payloadProp, closeModalProp }) {
   const onFormSubmit = () => {
     console.log("fffffffffffffffffffffff_____onFormSubmit: formValue");
     console.log(formValue);
-    if (formValue.type === "once") {
-      let dates_duration = formValue.duration.map((val) => {
-        return CustomUtil.formatTimelessDate(
-          new Date(val).toDateString(),
-          true
-        );
-      });
 
-      setFormValue({
-        ...formValue,
-        id: createEventId(),
-        duration: dates_duration,
-      });
+    let submit_obj;
+    if (formValue.shared.type === "once") {
+      // let dates_duration = formValue.once.duration.map((val) => {
+      //   return CustomUtil.formatTimelessDate(
+      //     new Date(val).toDateString(),
+      //     true
+      //   );
+      // });
+      submit_obj = { ...formValue.shared, ...formValue.once };
+
+      submit_obj.id = createEventId();
+      EVENTS.push(submit_obj);
     } else {
-      setFormValue({
-        ...formValue,
-        id: createEventId(),
-        days: formValue.days,
-      });
+      submit_obj = { ...formValue.shared, ...formValue.template };
+      submit_obj.id = createEventId();
+      TASK_TEMPLATES.push(submit_obj);
     }
 
-    console.dir("form values: " + formValue);
-    console.log(formValue);
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaa_____onFormSubmit: submit_obj");
 
-    EVENTS.push(formValue);
+    console.log(submit_obj);
+    setFormValue(initialForm);
     closeModalProp();
   };
 
+  console.log("88888888888888888888 formValue.shared.assignees: ");
+  console.log(formValue.shared.assignees);
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(formValue);
         onFormSubmit();
-        onFormChange(formValue);
       }}
     >
       <div style={{ display: "flex" }}>
@@ -85,22 +105,81 @@ function EventForm({ payloadProp, closeModalProp }) {
           <input
             name="title"
             placeholder="title"
-            value={formValue.title || ""}
+            value={formValue.shared.title}
             type="text"
             onChange={(e) => {
-              onFormChange({ ...formValue, title: e.target.value });
+              setFormValue({
+                ...formValue,
+                shared: { ...formValue.shared, title: e.target.value },
+              });
             }}
           />
           <textarea
             name="description"
             placeholder="description"
-            value={formValue.description || ""}
+            value={formValue.shared.description}
             onChange={(e) => {
-              onFormChange({ ...formValue, description: e.target.value });
+              setFormValue({
+                ...formValue,
+                shared: { ...formValue.shared, description: e.target.value },
+              });
             }}
           />
-
           <div>
+            <label htmlFor="select_assignee">Assignee</label>
+            <div className="flex">
+              <div>
+                {FAKE_USERS.map((u) => {
+                  return (
+                    <p
+                      onClick={(e) => {
+                        console.log(e.target.id);
+
+                        const full_user = _.filter(FAKE_USERS, (u) => {
+                          return u.id === parseInt(e.target.id);
+                        });
+
+                        const assignee = {
+                          id: full_user[0].id,
+                          username: full_user[0].username,
+                        };
+
+                        const new_assignees = [
+                          ...formValue.shared.assignees,
+                          assignee,
+                        ];
+                        console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+                        console.log(new_assignees);
+
+                        setFormValue({
+                          ...formValue,
+                          shared: {
+                            ...formValue.shared,
+                            assignees: new_assignees,
+                          },
+                        });
+                      }}
+                      id={u.id}
+                    >
+                      {u.username}
+                    </p>
+                  );
+                })}
+              </div>
+
+              <div>
+                asdfsd
+                {formValue.shared.assignees.map((u) => {
+                  console.log("3333333333333333");
+                  console.log(u);
+                  return <p>{u.username}</p>;
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Need to fix this by adding toggle forms */}
+          {/* <div> 
             <label htmlFor="select_assignee">Assignee</label>
             <select
               id="select_assignee"
@@ -124,7 +203,7 @@ function EventForm({ payloadProp, closeModalProp }) {
                 return <option value={u.id}>{u.username}</option>;
               })}
             </select>
-          </div>
+          </div> */}
         </div>
 
         <div>
@@ -132,7 +211,10 @@ function EventForm({ payloadProp, closeModalProp }) {
           <select
             id="select_frequency"
             onChange={(e) =>
-              setFormValue({ ...formValue, type: e.target.value })
+              setFormValue({
+                ...formValue,
+                shared: { ...formValue.shared, type: e.target.value },
+              })
             }
           >
             <option value="once">once</option>
@@ -146,7 +228,10 @@ function EventForm({ payloadProp, closeModalProp }) {
           <select
             id="select_points"
             onChange={(e) =>
-              setFormValue({ ...formValue, points: e.target.value })
+              setFormValue({
+                ...formValue,
+                shared: { ...formValue.shared, points: e.target.value },
+              })
             }
           >
             <option value="">N/A</option>
@@ -156,25 +241,28 @@ function EventForm({ payloadProp, closeModalProp }) {
           </select>
         </div>
 
-        <div>
+        {/* <div>
           <label for="select_completion">Completed</label>
           <Checkbox
-            checked={formValue.completed}
+            checked={formValue.once.completed}
             onChange={(e) => {
               console.log("666666666666666666");
-              console.log(formValue.completed);
-              setFormValue({ ...formValue, completed: !formValue.completed });
+              console.log(formValue.once.completed);
+              setFormValue({ ...formValue, completed: !formValue.once.completed });
             }}
             name="select_completion"
           />
-        </div>
+        </div> */}
 
         <div>
           <label htmlFor="select_points">Color</label>
           <select
             id="select_points"
             onChange={(e) =>
-              setFormValue({ ...formValue, color: e.target.value })
+              setFormValue({
+                ...formValue,
+                shared: { ...formValue.shared, color: e.target.value },
+              })
             }
           >
             <option value="">N/A</option>
