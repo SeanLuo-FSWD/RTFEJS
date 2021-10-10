@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { INITIAL_EVENTS } from "../../fakeDb/event-utils";
+import { EVENTS } from "../../fakeDb/events";
 import getDaysFromToday from "../../helpers/getDaysFromToday";
 import getTasksforDay from "../../helpers/getTasksforDay";
 import TaskModal from "../TaskDetail/TaskDetail";
@@ -18,9 +18,9 @@ function TaskList() {
 
   const setDetailModal = (e, event_id) => {
     e.stopPropagation();
-    for (let i = 0; i < INITIAL_EVENTS.length; i++) {
-      if (event_id === INITIAL_EVENTS[i].id) {
-        set_Modal({ type: "event", payload: INITIAL_EVENTS[i] });
+    for (let i = 0; i < EVENTS.length; i++) {
+      if (event_id === EVENTS[i].id) {
+        set_Modal({ type: "event", payload: EVENTS[i] });
       }
     }
   };
@@ -30,7 +30,7 @@ function TaskList() {
   let taskListCompo = days_arr.map((calDate) => {
     let ele_arr = null;
 
-    ele_arr = INITIAL_EVENTS.filter((ele) => {
+    ele_arr = EVENTS.filter((ele) => {
       return getTasksforDay(calDate, true, ele);
     }).map((ele) => {
       const item = (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { INITIAL_EVENTS, createEventId } from "../../fakeDb/event-utils";
+import { EVENTS, createEventId } from "../../fakeDb/events";
 import { FAKE_USERS } from "../../fakeDb/fakeUsers";
 import CustomUtil from "../../helpers/CustomUtil";
 import dateHighLight from "./dateHighLight";
@@ -41,6 +41,8 @@ function EventForm({ payloadProp, closeModalProp }) {
     setFormValue(values);
   };
   const onFormSubmit = () => {
+    console.log("fffffffffffffffffffffff_____onFormSubmit: formValue");
+    console.log(formValue);
     if (formValue.type === "once") {
       let dates_duration = formValue.duration.map((val) => {
         return CustomUtil.formatTimelessDate(
@@ -65,7 +67,7 @@ function EventForm({ payloadProp, closeModalProp }) {
     console.dir("form values: " + formValue);
     console.log(formValue);
 
-    INITIAL_EVENTS.push(formValue);
+    EVENTS.push(formValue);
     closeModalProp();
   };
 

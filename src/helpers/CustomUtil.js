@@ -1,7 +1,16 @@
 class CustomUtil {
-  static getMonthLastDay(month) {
-    const lastDay = new Date(2008, month + 1, 0);
-    return lastDay.getDate();
+  static getMonthLastDate(calDate) {
+    const month = calDate.getMonth();
+    let calDate_str = calDate.toDateString();
+    let dayPDT = new Date(
+      calDate_str + " 01:00:00 GMT-0700 (Pacific Daylight Time)"
+    );
+    const lastDay = new Date(2008, month + 1, 0).getDate();
+    // dayPDT.setDate(lastDay);
+    // console.log("zzzzzzzzzzzzzzzzzzzzzzz");
+    // console.log(dayPDT);
+    // return dayPDT;
+    return lastDay;
   }
 
   static isDigitConvertible(value) {
@@ -9,12 +18,12 @@ class CustomUtil {
   }
 
   static formatTimelessDate(
-    day,
+    day, //calDate.toDateString()
     typeString = false,
     offset = {
       offsetType: null,
       amount: 0,
-    } 
+    }
   ) {
     let dayPDT = new Date(day + " 01:00:00 GMT-0700 (Pacific Daylight Time)");
     let year = dayPDT.getFullYear();
