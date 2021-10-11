@@ -4,6 +4,7 @@ import getDaysFromToday from "../../helpers/getDaysFromToday";
 import getTasksforDay from "../../helpers/getTasksforDay";
 import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
+import getCreateTasks from "../helpers/getCreateTasks";
 
 const _Modal_initial = {
   type: null,
@@ -30,20 +31,22 @@ function TaskList() {
   let taskListCompo = days_arr.map((calDate) => {
     let ele_arr = null;
 
+    getCreateTasks(calDate);
+
     ele_arr = EVENTS.filter((ele) => {
+      /* filter only events for that day */
       return getTasksforDay(calDate, true, ele);
-    }).map((ele) => {
+    }).map((event) => {
       const item = (
-        // <button onClick={(e) => setDetailModal(e, ele.id)}>{ele.title}</button>
         <div
-          style={{ backgroundColor: ele.color, border: "thin solid black" }}
-          onClick={(e) => setDetailModal(e, ele.id)}
+          style={{ backgroundColor: event.color, border: "thin solid black" }}
+          onClick={(e) => setDetailModal(e, event.id)}
         >
-          {ele.title}
+          {event.title}
         </div>
       );
 
-      const hasEvents = getTasksforDay(calDate, item, ele);
+      const hasEvents = getTasksforDay(calDate, item, event);
 
       return hasEvents;
     });

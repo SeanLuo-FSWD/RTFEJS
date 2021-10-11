@@ -4,10 +4,10 @@ import CustomUtil from "./CustomUtil";
 const getTasksforDay = (calDate, item, ele) => {
   let startDate;
   let endDate;
-  startDate = new Date(ele.duration[0]);
-  endDate = new Date(ele.duration[1]);
+  startDate = new Date(ele.duration[0]).getTime();
+  endDate = new Date(ele.duration[1]).getTime();
 
-  if (calDate >= startDate && calDate <= endDate) {
+  if (calDate.getTime() >= startDate && calDate.getTime() <= endDate) {
     return item;
   }
 };

@@ -39,12 +39,12 @@ function Router() {
             isAuth={currentUser}
             key="uniquevalue"
           />
-          {/* <ProtectedRoute path="/" Component={HomePg} isAuth={currentUser} /> */}
-          <ProtectedRoute
+          <ProtectedRoute path="/" Component={HomePg} isAuth={currentUser} />
+          {/* <ProtectedRoute
             path="/"
             Component={CalendarPg}
             isAuth={currentUser}
-          />
+          /> */}
         </Switch>
       </ErrorHandler>
     </BrowserRouter>
