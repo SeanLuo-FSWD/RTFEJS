@@ -31,6 +31,10 @@ function TaskList() {
   let taskListCompo = days_arr.map((calDate) => {
     let ele_arr = null;
 
+    /*
+      Adding reoccuring tasks to EVENTS here.
+      This wouldn't be needed with a real db as tasks would already be added there.
+    */
     getCreateTasks(calDate);
 
     ele_arr = EVENTS.filter((ele) => {

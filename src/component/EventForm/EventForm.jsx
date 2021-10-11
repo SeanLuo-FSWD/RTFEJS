@@ -8,6 +8,8 @@ import TypeSpecific from "./TypeSpecific";
 import _ from "lodash";
 import { Transfer } from "antd";
 import UserTransfer from "./UserTransfer";
+import getDaysFromToday from "../../helpers/getDaysFromToday";
+import getCreateTasks from "../helpers/getCreateTasks";
 
 function EventForm({ payloadProp, closeModalProp }) {
   const initialForm = {
@@ -62,6 +64,12 @@ function EventForm({ payloadProp, closeModalProp }) {
       submit_obj.id = createEventId();
       TASK_TEMPLATES.push(submit_obj);
     }
+
+    /* Get a month from today to create all the tasks for the first month */
+    const days_arr = getDaysFromToday(31);
+    days_arr.map((calDate) => {
+      getCreateTasks(calDate);
+    });
 
     console.log("aaaaaaaaaaaaaaaaaaaaaaaa_____onFormSubmit: submit_obj");
 

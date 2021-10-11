@@ -1,11 +1,11 @@
 import CustomUtil from "./CustomUtil";
 
-const getDaysFromToday = (days) => {
+const getDaysFromToday = (days, startDate = new Date()) => {
   let days_arr = [];
 
   for (let i = 0; i < days; i++) {
     days_arr.push(
-      CustomUtil.formatTimelessDate(new Date().toDateString(), false, {
+      CustomUtil.formatTimelessDate(startDate.toDateString(), false, {
         offsetType: "day",
         amount: i,
       })
