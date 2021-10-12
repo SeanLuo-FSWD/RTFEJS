@@ -13,6 +13,7 @@ export const TASK_TEMPLATES = [
       { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
       { id: FAKE_USERS[2].id, username: FAKE_USERS[2].username },
     ],
+    beginDate: CustomUtil.formatTimelessDate(new Date().toDateString()),
     points: 20,
     color: "lightgreen",
   },

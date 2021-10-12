@@ -36,6 +36,10 @@ function EventForm({ payloadProp, closeModalProp }) {
     },
     template: {
       days: [],
+      beginDate: CustomUtil.formatTimelessDate(
+        payloadProp.event_obj.date.toDateString(),
+        true
+      ),
     },
   };
   const [formValue, setFormValue] = useState(initialForm);
@@ -66,10 +70,10 @@ function EventForm({ payloadProp, closeModalProp }) {
     }
 
     /* Get a month from today to create all the tasks for the first month */
-    const days_arr = getDaysFromToday(31);
-    days_arr.map((calDate) => {
-      getCreateTasks(calDate);
-    });
+    // const days_arr = getDaysFromToday(31);
+    // days_arr.map((calDate) => {
+    //   getCreateTasks(calDate);
+    // });
 
     console.log("aaaaaaaaaaaaaaaaaaaaaaaa_____onFormSubmit: submit_obj");
 
@@ -120,6 +124,7 @@ function EventForm({ payloadProp, closeModalProp }) {
           <label htmlFor="select_frequency">Frequency</label>
           <select
             id="select_frequency"
+            // @@obj_dest
             onChange={(e) =>
               setFormValue({
                 ...formValue,

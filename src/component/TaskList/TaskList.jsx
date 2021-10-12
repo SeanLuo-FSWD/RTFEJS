@@ -6,6 +6,7 @@ import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
 import getCreateTasks from "../helpers/getCreateTasks";
 
+// let EVENTS = EVENTS;
 const _Modal_initial = {
   type: null,
   payload: null,

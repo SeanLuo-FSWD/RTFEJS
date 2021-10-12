@@ -101,6 +101,7 @@ function TypeSpecific({ formValue, onFormChange }) {
         </div>
       ) : formValue.shared.type === "monthly" ? (
         <div>
+          <h3>Starting from: {formValue.template.beginDate}</h3>
           <div style={{ display: "flex" }}>
             days:
             {formValue.template.days.map((d) => {
@@ -132,6 +133,8 @@ function TypeSpecific({ formValue, onFormChange }) {
         </div>
       ) : (
         <div>
+          <h3>Starting from: {formValue.template.beginDate}</h3>
+
           <div style={{ display: "flex" }}>
             days:
             {formValue.template.days.map((d) => {
