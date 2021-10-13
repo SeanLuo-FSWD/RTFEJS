@@ -9,7 +9,7 @@ import { EVENTS_DRAFT } from "../../store/stateless/event_draft";
 // console.log("ddddddddddddddddddddddd");
 // console.log("ddddddddddddddddddddddd");
 // EVENTS_DRAFT.push({ name: "bob" });
-console.log(EVENTS_DRAFT);
+// console.log(EVENTS_DRAFT);
 /*
     Adding reoccuring tasks to EVENTS here.
   */
@@ -53,55 +53,68 @@ const getCreateTasks = (calDate) => {
         // const assignee = _.filter(EVENTS_DRAFT, (da) => {
         //   return da.date.getTime() === calDate.getTime();
         // });
+        let one_day_duration = getDuration(calDate);
 
-        console.log("000000000000000000000");
-        console.log(
-          "CustomUtil.formatTimelessDate(calDate.toDateString(), true)"
-        );
-
-        console.log(
-          CustomUtil.formatTimelessDate(calDate.toDateString(), true)
-        );
-
+        console.log();
         let obj_submit = {
           id: createEventId(),
           templateId: task.id,
           title: task.title,
           type: task.type,
           description: task.description,
-          duration: [
-            CustomUtil.formatTimelessDate(calDate.toDateString(), true),
-            CustomUtil.formatTimelessDate(calDate.toDateString(), true),
-          ],
+          // duration: [
+          //   CustomUtil.formatTimelessDate(calDate.toDateString(), true),
+          //   CustomUtil.formatTimelessDate(calDate.toDateString(), true),
+          // ],
+          duration: [new Date(), new Date()],
           assignees: false,
           points: task.points,
           completed: false,
           color: task.color,
         };
 
-        console.log("EVENTS_DRAFT______1111111111111111111111");
-        console.log("obj_submit");
-        console.log(obj_submit);
         // EVENTS.push(obj_submit);
         /* Since we did not calculate the assignee for that task, we don't push to EVENTS yet, but push to a "shadow-EVENTs" obj called EVENTS_DRAFT */
-        EVENTS_DRAFT.push(obj_submit);
+
+        EVENTS_DRAFT.push({
+          howmanykeys: "random string",
+        });
+
+        let EVENTS_DRAFT_LOCAL = ["EVENTS_DRAFT_LOCAL"];
+        EVENTS_DRAFT_LOCAL.push({
+          howmanykeys: "random string",
+        });
+        // EVENTS_DRAFT.push(
+        //   "a string"
+        // );
+
+        console.log("EVENTS_DRAFT_LOCAL:");
+        console.log(EVENTS_DRAFT_LOCAL);
+
+        console.log("");
+
+        console.log("EVENTS_DRAFT:");
         console.log(EVENTS_DRAFT);
-        console.log("---------========----------");
-        console.log(obj_submit);
-        console.log(EVENTS);
-        console.log("EVENTS_DRAFT");
+
+        console.log("");
+        console.log("xxxxxxxxxxxxxxxxxxxxxx");
       }
     });
-    if (EVENTS_DRAFT.length != 0) {
-      console.log("???????????  whyt this called?");
-      console.log(EVENTS_DRAFT.length);
-      console.log(EVENTS_DRAFT);
-      turnCalculator(
-        task.id,
-        calDate
-      ); /* Once we are done with all events for that that task for that calendar day, we calculate the assignee */
-    }
+    // if (EVENTS_DRAFT.length != 0) {
+    //   console.log("???????????  whyt this called?");
+    //   console.log(EVENTS_DRAFT.length);
+    //   console.log(EVENTS_DRAFT);
+
+    //   /* Once we are done with all events for that that task for that calendar day, we calculate the assignee */
+    //   // turnCalculator(task.id, calDate);
+    // }
   });
+};
+
+let getDuration = function (calDate) {
+  let to_return = CustomUtil.formatTimelessDate(calDate.toDateString(), true);
+
+  return to_return;
 };
 
 export default getCreateTasks;
