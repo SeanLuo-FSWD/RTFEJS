@@ -23,6 +23,13 @@ const turn2Calculator = (calDate, up_to_days) => {
     const task_date = new Date(EVENTS[i].duration[0]);
     let next_up_to_date = new Date(calDate.getTime());
     next_up_to_date.setDate(calDate.getDate() + up_to_days);
+
+    console.log(
+      calDate.toDateString() +
+        " cccccccccccccccccccc " +
+        task_date.toDateString()
+    );
+
     if (
       task_date.getTime() >= calDate.getTime() &&
       task_date.getTime() <= next_up_to_date.getTime() &&
@@ -30,7 +37,10 @@ const turn2Calculator = (calDate, up_to_days) => {
       !EVENTS[i].assignees
     ) {
       EVENTS[i].assignees = [insertAssignee(EVENTS[i])];
-      console.log("999999999999999999999 EVENTS[i]");
+      console.log(
+        EVENTS[0] + " EVENTS[0] 999999999999999999999 EVENTS[i] : " + EVENTS[i]
+      );
+      console.log(EVENTS[0]);
       console.log(EVENTS[i]);
     }
   }
@@ -46,8 +56,8 @@ const turn2Calculator = (calDate, up_to_days) => {
 };
 
 const insertAssignee = (task) => {
-  console.log("55555555555555555");
-  console.log(task);
+  // console.log("55555555555555555");
+  // console.log(task);
   const template = TASK_TEMPLATES.find((t) => {
     return t.id === task.templateId;
   });
@@ -58,9 +68,9 @@ const insertAssignee = (task) => {
 
   const firstDate = new Date(template.beginDate);
   const targetDate = new Date(task.duration[0]);
-  console.log("666666666666666666");
-  console.log(firstDate);
-  console.log(targetDate);
+  // console.log("666666666666666666");
+  // console.log(firstDate);
+  // console.log(targetDate);
 
   const days_diff = dateDiffInDays(
     // date of the first event.
@@ -69,15 +79,15 @@ const insertAssignee = (task) => {
   );
 
   let all_dates_arr = getDaysFromDate(days_diff, firstDate);
-  console.log("all_dates_arr");
-  console.log(all_dates_arr);
+  // console.log("all_dates_arr");
+  // console.log(all_dates_arr);
   /* all dates with the said template from beginning */
   tasked_dates_arr = all_dates_arr.filter((calDate) => {
     return getTaskedDates(calDate, template);
   });
 
-  console.log("777777777777777777777");
-  console.log(tasked_dates_arr);
+  // console.log("777777777777777777777 tasked_dates_arr " + tasked_dates_arr);
+  // console.log(tasked_dates_arr);
   /* looping thru each assignee, and start from beginning once loop ended */
   let i = 0;
   tasked_dates_arr.forEach((date_str) => {
@@ -92,8 +102,8 @@ const insertAssignee = (task) => {
       i++;
     }
   });
-  console.log("88888888888888888888");
-  console.log(merged_dates);
+  // console.log("88888888888888888888");
+  // console.log(merged_dates);
 
   return merged_dates[merged_dates.length - 1];
 };
@@ -121,8 +131,14 @@ const getTaskedDates = (calDate, template) => {
     } else {
       /* weekly task */
       cell_day = calDate.getDay();
+      // console.log(
+      //   unified_day +
+      //     " unified_day aaaaaaaaaaaaaaaaaaaaaaaa cell_day " +
+      //     cell_day
+      // );
     }
-    if (cell_day == unified_day) {
+    if (cell_day === unified_day) {
+      // console.log("bbbbbbbbbbbbbbbbbb " + calDate.toDateString());
       have_task_date = CustomUtil.formatTimelessDate(
         calDate.toDateString(),
         true

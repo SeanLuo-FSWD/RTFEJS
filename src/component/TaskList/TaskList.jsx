@@ -18,7 +18,11 @@ function TaskList() {
 
   useEffect(() => {
     console.log("trigerrrrrrred_____");
-    turn2Calculator(new Date(), 30);
+    // turn2Calculator(new Date(), 30);
+    turn2Calculator(
+      CustomUtil.formatTimelessDate(new Date().toDateString()),
+      30
+    );
   });
 
   const closeModal = () => {
