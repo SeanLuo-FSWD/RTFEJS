@@ -5,6 +5,7 @@ import getTasksforDay from "../../helpers/getTasksforDay";
 import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
 import getCreateTasks from "../helpers/getCreateTasks";
+import turn2Calculator from "../../helpers/turn2Calculator";
 
 // let EVENTS = EVENTS;
 const _Modal_initial = {
@@ -14,6 +15,11 @@ const _Modal_initial = {
 
 function TaskList() {
   const [_Modal, set_Modal] = useState(_Modal_initial);
+
+  useEffect(() => {
+    turn2Calculator();
+  }, [_Modal]);
+
   const closeModal = () => {
     set_Modal(_Modal_initial);
   };
