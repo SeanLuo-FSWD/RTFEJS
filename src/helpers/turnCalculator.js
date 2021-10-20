@@ -1,6 +1,6 @@
 import { TASK_TEMPLATES } from "../fakeDb/task_templates";
 import { EVENTS } from "../fakeDb/events";
-import getDaysFromToday from "./getDaysFromToday";
+import getDaysFromDate from "./getDaysFromDate";
 import { EVENTS_DRAFT } from "../store/stateless/event_draft";
 import CustomUtil from "./CustomUtil";
 
@@ -25,7 +25,7 @@ const turnCalculator = (templateId, calDate) => {
     new Date(first_date),
     new Date(next_60_days)
   );
-  const all_dates_arr = getDaysFromToday(days_diff, calDate);
+  const all_dates_arr = getDaysFromDate(days_diff, calDate);
 
   const assignees = template.assignees;
 

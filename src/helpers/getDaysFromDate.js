@@ -1,6 +1,6 @@
 import CustomUtil from "./CustomUtil";
 
-const getDaysFromToday = (days, startDate = new Date()) => {
+const getDaysFromDate = (days, startDate = new Date()) => {
   let days_arr = [];
 
   for (let i = 0; i < days; i++) {
@@ -15,4 +15,4 @@ const getDaysFromToday = (days, startDate = new Date()) => {
   return days_arr;
 };
 
-export default getDaysFromToday;
+export default getDaysFromDate;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { EVENTS } from "../../fakeDb/events";
-import getDaysFromToday from "../../helpers/getDaysFromToday";
+import getDaysFromDate from "../../helpers/getDaysFromDate";
 import getTasksforDay from "../../helpers/getTasksforDay";
 import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
@@ -17,8 +17,9 @@ function TaskList() {
   const [_Modal, set_Modal] = useState(_Modal_initial);
 
   useEffect(() => {
-    turn2Calculator();
-  }, [_Modal]);
+    console.log("trigerrrrrrred_____");
+    turn2Calculator(new Date(), 30);
+  });
 
   const closeModal = () => {
     set_Modal(_Modal_initial);
@@ -33,7 +34,7 @@ function TaskList() {
     }
   };
 
-  const days_arr = getDaysFromToday(30);
+  const days_arr = getDaysFromDate(30);
 
   let taskListCompo = days_arr.map((calDate) => {
     let ele_arr = null;

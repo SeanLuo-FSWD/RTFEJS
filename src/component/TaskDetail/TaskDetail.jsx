@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import { EVENTS } from "../../fakeDb/events";
 import EventForm from "../EventForm/EventForm";
 
 const customStyles = {
@@ -31,10 +32,19 @@ function TaskModal({
   console.log(payloadProp.event_obj);
 
   const displayAssignees = () => {
-    let assignees = payloadProp.event_obj.assignees.map((user) => {
+    let matching_event = EVENTS.find((e) => {
+      return e.id === payloadProp.event_obj.id;
+    });
+
+    // let assignees = payloadProp.event_obj.assignees.map((user) => {
+    //   return <p>{user.username}</p>;
+    // });
+
+    let assigneesCompo = matching_event.assignees.map((user) => {
       return <p>{user.username}</p>;
     });
-    return assignees;
+
+    return assigneesCompo;
   };
 
   switch (isOpenProp) {

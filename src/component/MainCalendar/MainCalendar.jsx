@@ -5,6 +5,8 @@ import { EVENTS } from "../../fakeDb/events";
 import dateCellRender from "./properties/dateCellRender";
 import TaskModal from "../TaskDetail/TaskDetail";
 import colorMainCal from "./functions/colorMainCal";
+import turn2Calculator from "../../helpers/turn2Calculator";
+import CustomUtil from "../../helpers/CustomUtil";
 
 const _Modal_initial = {
   type: null,
@@ -16,6 +18,19 @@ let main_cell_click = false;
 function MainCalendar() {
   const [_Modal, set_Modal] = useState(_Modal_initial);
   const [_ForceUpdate, set_ForceUpdate] = useState(false);
+
+  useEffect(() => {
+    const list_days = document.querySelectorAll(
+      ".ant-picker-content tbody .ant-picker-cell"
+    );
+    const first_day_str = new Date(
+      list_days[0].getAttribute("title")
+    ).toDateString();
+    console.log("000000000000000000000");
+    console.log(first_day_str);
+    const firstDay = CustomUtil.formatTimelessDate(first_day_str);
+    turn2Calculator(firstDay, 40);
+  });
 
   useEffect(() => {
     main_cell_click = false;
