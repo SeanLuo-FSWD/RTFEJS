@@ -36,7 +36,10 @@ function TaskList() {
       Adding reoccuring tasks to EVENTS here.
       This wouldn't be needed with a real db as tasks would already be added there.
     */
-    getCreateTasks(calDate);
+    const day_tasks = getCreateTasks(calDate);
+    if (day_tasks) {
+      EVENTS_DRAFT.push(day_tasks);
+    }
 
     ele_arr = EVENTS.filter((ele) => {
       /* filter only events for that day */

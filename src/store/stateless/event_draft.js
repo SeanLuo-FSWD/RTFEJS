@@ -1,1 +1,1 @@
-export const EVENTS_DRAFT = ['EVENTS_DRAFT'];
+export const EVENTS_DRAFT = [];
