@@ -5,6 +5,8 @@ import getTasksforDay from "../../helpers/getTasksforDay";
 import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
 import getCreateTasks from "../helpers/getCreateTasks";
+import turn2Calculator from "../../helpers/turn2Calculator";
+import { EVENTS_DRAFT } from "../../store/stateless/event_draft";
 
 // let EVENTS = EVENTS;
 const _Modal_initial = {
@@ -12,11 +14,19 @@ const _Modal_initial = {
   payload: null,
 };
 
+const today = CustomUtil.formatTimelessDate(new Date().toDateString());
+
 function TaskList() {
   const [_Modal, set_Modal] = useState(_Modal_initial);
   const closeModal = () => {
     set_Modal(_Modal_initial);
   };
+
+  useEffect(() => {
+    EVENTS_DRAFT.forEach((element) => {
+      turn2Calculator(today, element.templateId);
+    });
+  }, [EVENTS]);
 
   const setDetailModal = (e, event_id) => {
     e.stopPropagation();
@@ -59,7 +69,7 @@ function TaskList() {
       return hasEvents;
     });
 
-    const today = CustomUtil.formatTimelessDate(new Date().toDateString());
+    // const today = CustomUtil.formatTimelessDate(new Date().toDateString());
 
     let dateDisplay;
 
