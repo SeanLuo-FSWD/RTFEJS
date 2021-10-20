@@ -55,18 +55,17 @@ const getCreateTasks = (calDate) => {
           type: task.type,
           description: task.description,
           duration: [one_day_duration, one_day_duration],
-          assignees: false,
+          assignees: task.assignees,
           points: task.points,
           completed: false,
           color: task.color,
         };
 
-        // EVENTS.push(obj_submit);
+        EVENTS.push(obj_submit);
         /* Since we did not calculate the assignee for that task, we don't push to EVENTS yet, but push to a "shadow-EVENTs" obj called EVENTS_DRAFT
          */
 
         // EVENTS_DRAFT.push(obj_submit);
-        return obj_submit;
       }
     });
     // if (EVENTS_DRAFT.length != 0) {
@@ -74,7 +73,6 @@ const getCreateTasks = (calDate) => {
     //   turnCalculator(task.id, calDate);
     // }
   });
-  return;
 };
 
 let getDuration = function (calDate) {
