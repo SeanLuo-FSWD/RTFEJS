@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router-dom";
 function ProtectedRoute({ isAuth, Component }) {
   return (
     <Route
-        // {...rest}
+      // {...rest}
       render={(props) => {
         if (isAuth) {
           return <Component />;

@@ -24,7 +24,7 @@ function Router() {
       }
     });
 
-    setCurrentUser(FAKE_USERS[1]);
+    // setCurrentUser(FAKE_USERS[1]);
   }, []);
 
   return (
