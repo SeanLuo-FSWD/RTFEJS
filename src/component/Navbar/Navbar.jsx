@@ -18,7 +18,8 @@ function Navbar() {
 
   return (
     <div className={`${styles.nav_container}`}>
-      <h3>Welcome, {currentUser.username}</h3>
+      <h3>Welcome, {currentUser.name}</h3>
+      {/* <h3>Welcome, {currentUser.username}</h3> */}
       <Link to="/">
         <p>Home</p>
       </Link>

@@ -15,16 +15,16 @@ function Router() {
   const [doGet] = useGet();
 
   useEffect(() => {
-    // doGet("auth/authenticate", (res) => {
-    //   if (res) {
-    //     setCurrentUser(res);
+    doGet("auth/authenticate", (res) => {
+      if (res) {
+        setCurrentUser(res);
 
-    //   } else {
-    //     console.log("Router: user not authenticated");
-    //   }
-    // });
+      } else {
+        console.log("Router: user not authenticated");
+      }
+    });
 
-    setCurrentUser(FAKE_USERS[1]);
+    // setCurrentUser(FAKE_USERS[1]);
   }, []);
 
   return (
