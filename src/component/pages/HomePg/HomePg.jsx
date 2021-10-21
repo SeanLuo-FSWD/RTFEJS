@@ -28,15 +28,16 @@ function HomePg() {
       </Helmet>
       <h2>Home Page</h2>
       <button onClick={setFormModal}>Add event</button>
-      <div style={{ margin: "auto", textAlign: "center"}}>
-
-      <TaskList />
+      <div style={{ margin: "auto", textAlign: "center" }}>
+        <TaskList />
       </div>
-      <TaskModal
-        isOpenProp={_Modal.type}
-        closeModalProp={closeModal}
-        payloadProp={{ event_obj: _Modal.payload }}
-      />
+      {_Modal.type && (
+        <TaskModal
+          isOpenProp={_Modal.type}
+          closeModalProp={closeModal}
+          payloadProp={{ event_obj: _Modal.payload }}
+        />
+      )}
     </div>
   );
 }

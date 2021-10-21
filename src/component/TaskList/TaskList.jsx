@@ -4,7 +4,7 @@ import getDaysFromDate from "../../helpers/getDaysFromDate";
 import getTasksforDay from "../../helpers/getTasksforDay";
 import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
-import getCreateTasks from "../helpers/getCreateTasks";
+import getCreateTasks from "../../helpers/getCreateTasks";
 import turn2Calculator from "../../helpers/turn2Calculator";
 
 // let EVENTS = EVENTS;

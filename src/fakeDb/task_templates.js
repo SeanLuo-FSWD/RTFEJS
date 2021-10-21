@@ -17,16 +17,21 @@ export const TASK_TEMPLATES = [
     points: 20,
     color: "lightgreen",
   },
-  //   {
-  //     id: createTemplateId(),
-  //     title: "Weely reoccuring",
-  //     type: "weekly",
-  //     description: "Weely event description here",
-  //     days: [6],
-  //     assignees: [{ id: FAKE_USERS[0].id, username: FAKE_USERS[0].username }],
-  //     points: 10,
-  //     color: "lightcoral",
-  //   },
+  {
+    id: createTemplateId(),
+    title: "Weely reoccuring",
+    type: "weekly",
+    description: "Weely event description here",
+    days: [6],
+    assignees: [{ id: FAKE_USERS[0].id, username: FAKE_USERS[0].username }],
+    beginDate: CustomUtil.formatTimelessDate(
+      new Date(
+        "Thu Sep 16 2021 01:00:00 GMT-0700 (Pacific Daylight Time)"
+      ).toDateString()
+    ),
+    points: 10,
+    color: "lightcoral",
+  },
 ];
 
 export function createTemplateId() {

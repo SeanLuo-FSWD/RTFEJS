@@ -25,7 +25,10 @@ function Navbar() {
       <Link to="/calendar">
         <p>Calendar</p>
       </Link>
-      {/* <button onClick={handleLogout}>logout</button> */}
+      <Link to="/users">
+        <p>Users</p>
+      </Link>
+      <button onClick={handleLogout}>logout</button>
     </div>
   );
 }

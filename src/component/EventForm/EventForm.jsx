@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { EVENTS, createEventId } from "../../fakeDb/events";
-import { FAKE_USERS } from "../../fakeDb/fakeUsers";
 import { TASK_TEMPLATES, createTemplateId } from "../../fakeDb/task_templates";
 import CustomUtil from "../../helpers/CustomUtil";
 import dateHighLight from "./dateHighLight";
@@ -9,7 +8,7 @@ import _ from "lodash";
 import { Transfer } from "antd";
 import UserTransfer from "./UserTransfer";
 import getDaysFromDate from "../../helpers/getDaysFromDate";
-import getCreateTasks from "../helpers/getCreateTasks";
+import getCreateTasks from "../../helpers/getCreateTasks";
 
 function EventForm({ payloadProp, closeModalProp }) {
   const initialForm = {

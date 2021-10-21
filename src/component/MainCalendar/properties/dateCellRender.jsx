@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { EVENTS, createEventId } from "../../../fakeDb/events";
 import { TASK_TEMPLATES } from "../../../fakeDb/task_templates";
 import { FAKE_USERS } from "../../../fakeDb/fakeUsers";
-import getCreateTasks from "../../helpers/getCreateTasks";
+import getCreateTasks from "../../../helpers/getCreateTasks";
 import CustomUtil from "../../../helpers/CustomUtil";
 import _ from "lodash";
 import getTasksforDay from "../../../helpers/getTasksforDay";

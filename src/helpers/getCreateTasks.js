@@ -1,14 +1,14 @@
-import { EVENTS, createEventId } from "../../fakeDb/events";
-import { TASK_TEMPLATES } from "../../fakeDb/task_templates";
+import { EVENTS, createEventId } from "../fakeDb/events";
+import { TASK_TEMPLATES } from "../fakeDb/task_templates";
 import _ from "lodash";
-import CustomUtil from "../../helpers/CustomUtil";
-// import turnCalculator from "../../helpers/turnCalculator";
-import { EVENTS_DRAFT } from "../../store/stateless/event_draft";
+import CustomUtil from "./CustomUtil";
+import { EVENTS_DRAFT } from "../store/stateless/event_draft";
 
 /*
     Adding reoccuring tasks to EVENTS here.
   */
 const getCreateTasks = (calDate) => {
+  console.log("3333333333333333 " + calDate.toDateString());
   const day_tasks = _.filter(EVENTS, (task) => {
     const task_date = new Date(task.duration[0]);
     return task_date.getTime() == calDate.getTime();
@@ -18,8 +18,6 @@ const getCreateTasks = (calDate) => {
     return task.templateId;
   });
 
-  /* This loop parses the template to get all events for that date,
-  then calls turnCalculator to take the events, and assign users to it */
   TASK_TEMPLATES.forEach((task) => {
     task.days.forEach((day) => {
       let unified_day = day;
@@ -63,6 +61,8 @@ const getCreateTasks = (calDate) => {
         };
 
         EVENTS.push(obj_submit);
+        console.log("cccccccccccccccccccc");
+        console.log(EVENTS.length);
         /* Since we did not calculate the assignee for that task, we don't push to EVENTS yet, but push to a "shadow-EVENTs" obj called EVENTS_DRAFT
          */
 
