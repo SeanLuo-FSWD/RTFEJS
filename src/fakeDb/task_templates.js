@@ -16,6 +16,7 @@ export const TASK_TEMPLATES = [
     beginDate: CustomUtil.formatTimelessDate(new Date().toDateString()),
     points: 20,
     color: "lightgreen",
+    roomKey: "rom1",
   },
   {
     id: createTemplateId(),
@@ -31,6 +32,23 @@ export const TASK_TEMPLATES = [
     ),
     points: 12,
     color: "lightcoral",
+    roomKey: "rom1",
+  },
+  {
+    id: createTemplateId(),
+    title: "Weely reoccuring",
+    type: "weekly",
+    description: "Weely event description here",
+    days: [6],
+    assignees: [{ id: FAKE_USERS[4].id, username: FAKE_USERS[4].username }],
+    beginDate: CustomUtil.formatTimelessDate(
+      new Date(
+        "Thu Sep 16 2021 01:00:00 GMT-0700 (Pacific Daylight Time)"
+      ).toDateString()
+    ),
+    points: 12,
+    color: "lightcoral",
+    roomKey: "rom2",
   },
 ];
 

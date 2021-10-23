@@ -7,6 +7,7 @@ let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of to
 export const EVENTS = [
   {
     id: createEventId(),
+    roomKey: "rom1",
     title: "Passed event",
     type: "once",
     description: "first event description here",
@@ -31,6 +32,7 @@ export const EVENTS = [
   },
   {
     id: createEventId(),
+    roomKey: "rom1",
     title: "All-day event",
     type: "once",
     description: "first event description here",
@@ -45,6 +47,7 @@ export const EVENTS = [
   },
   {
     id: createEventId(),
+    roomKey: "rom1",
     title: "three days event",
     type: "once",
     description: "first event description here",
@@ -59,6 +62,39 @@ export const EVENTS = [
     points: 20,
     completed: false,
     color: null,
+  },
+  {
+    id: createEventId(),
+    roomKey: "rom2",
+    title: "All-day event",
+    type: "once",
+    description: "first event description here",
+    duration: [
+      CustomUtil.formatTimelessDate(new Date().toDateString(), true),
+      CustomUtil.formatTimelessDate(new Date().toDateString(), true),
+    ],
+    assignees: [{ id: FAKE_USERS[4].id, username: FAKE_USERS[4].username }],
+    points: 30,
+    completed: false,
+    color: "lightcoral",
+  },
+  {
+    id: createEventId(),
+    roomKey: "rom2",
+    title: "three days event",
+    type: "once",
+    description: "first event description here",
+    duration: [
+      CustomUtil.formatTimelessDate(new Date().toDateString(), true),
+      CustomUtil.formatTimelessDate(new Date().toDateString(), true, {
+        offsetType: "day",
+        amount: 2,
+      }),
+    ],
+    assignees: [{ id: FAKE_USERS[4].id, username: FAKE_USERS[4].username }],
+    points: 20,
+    completed: false,
+    color: "lightblue",
   },
 ];
 

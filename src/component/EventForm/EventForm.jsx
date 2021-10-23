@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { EVENTS, createEventId } from "../../fakeDb/events";
 import { TASK_TEMPLATES, createTemplateId } from "../../fakeDb/task_templates";
 import CustomUtil from "../../helpers/CustomUtil";
@@ -7,10 +7,11 @@ import TypeSpecific from "./TypeSpecific";
 import _ from "lodash";
 import { Transfer } from "antd";
 import UserTransfer from "./UserTransfer";
-import getDaysFromDate from "../../helpers/getDaysFromDate";
-import getCreateTasks from "../../helpers/getCreateTasks";
+import { globalContext } from "../../store/context/globalContext";
 
 function EventForm({ payloadProp, closeModalProp }) {
+  const { currentUser } = useContext(globalContext);
+
   const initialForm = {
     shared: {
       title: "",
@@ -19,6 +20,7 @@ function EventForm({ payloadProp, closeModalProp }) {
       points: null,
       color: null,
       assignees: [],
+      roomKey: currentUser.roomKey,
     },
     once: {
       duration: [

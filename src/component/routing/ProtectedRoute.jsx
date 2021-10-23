@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
+import { globalContext } from "../../store/context/globalContext";
+import CommunityPg from "../pages/CommunityPg/CommunityPg";
 
 function ProtectedRoute({ isAuth, Component }) {
+  const { currentUser } = useContext(globalContext);
+
   return (
     <Route
-        // {...rest}
+      // {...rest}
       render={(props) => {
         if (isAuth) {
-          return <Component />;
+          if (currentUser.roomKey) {
+            return <Component />;
+          } else {
+            return <CommunityPg />;
+          }
         } else {
           return (
             <Redirect

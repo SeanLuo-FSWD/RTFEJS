@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { EVENTS, createEventId } from "../../../fakeDb/events";
 import { TASK_TEMPLATES } from "../../../fakeDb/task_templates";
 import { FAKE_USERS } from "../../../fakeDb/fakeUsers";
@@ -6,8 +6,10 @@ import getCreateTasks from "../../../helpers/getCreateTasks";
 import CustomUtil from "../../../helpers/CustomUtil";
 import _ from "lodash";
 import getTasksforDay from "../../../helpers/getTasksforDay";
+import { globalContext } from "../../../store/context/globalContext";
 
-const dateCellRender = (date, setModal) => {
+const DateCellRender = (date, setModal) => {
+  const { currentUser } = useContext(globalContext);
   const calDate = CustomUtil.formatTimelessDate(date._d.toDateString());
 
   let ele_arr = null;
@@ -15,7 +17,7 @@ const dateCellRender = (date, setModal) => {
   /*
     Adding reoccuring tasks to EVENTS here.
   */
-  getCreateTasks(calDate);
+  getCreateTasks(calDate, currentUser.roomKey);
 
   ele_arr = EVENTS.map((ele) => {
     const item = (
@@ -27,10 +29,10 @@ const dateCellRender = (date, setModal) => {
       </div>
     );
 
-    return getTasksforDay(calDate, item, ele);
+    return getTasksforDay(calDate, item, ele, currentUser.roomKey);
   });
 
   return ele_arr;
 };
 
-export default dateCellRender;
+export default DateCellRender;

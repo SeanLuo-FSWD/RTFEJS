@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Calendar } from "antd";
 import "./MainCalendar.scss";
 import { EVENTS } from "../../fakeDb/events";
-import dateCellRender from "./properties/dateCellRender";
+import DateCellRender from "./properties/DateCellRender";
 import TaskModal from "../TaskDetail/TaskDetail";
 import colorMainCal from "./functions/colorMainCal";
 import turn2Calculator from "../../helpers/turn2Calculator";
@@ -26,8 +26,6 @@ function MainCalendar() {
     const first_day_str = new Date(
       list_days[0].getAttribute("title")
     ).toDateString();
-    console.log("000000000000000000000");
-    console.log(first_day_str);
     const firstDay = CustomUtil.formatTimelessDate(first_day_str);
     turn2Calculator(firstDay, 40);
   });
@@ -81,7 +79,7 @@ function MainCalendar() {
   return (
     <div id="calendarMain" className="antd_styling">
       <Calendar
-        dateCellRender={(date) => dateCellRender(date, setDetailModal)}
+        dateCellRender={(date) => DateCellRender(date, setDetailModal)}
         onSelect={(date) => onSelect(date, setFormModal)}
         onPanelChange={() => set_ForceUpdate(true)}
       />

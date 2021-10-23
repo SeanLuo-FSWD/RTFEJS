@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { EVENTS } from "../../fakeDb/events";
 import getDaysFromDate from "../../helpers/getDaysFromDate";
 import getTasksforDay from "../../helpers/getTasksforDay";
@@ -6,6 +6,7 @@ import TaskModal from "../TaskDetail/TaskDetail";
 import CustomUtil from "../../helpers/CustomUtil";
 import getCreateTasks from "../../helpers/getCreateTasks";
 import turn2Calculator from "../../helpers/turn2Calculator";
+import { globalContext } from "../../store/context/globalContext";
 
 // let EVENTS = EVENTS;
 const _Modal_initial = {
@@ -15,9 +16,10 @@ const _Modal_initial = {
 
 function TaskList() {
   const [_Modal, set_Modal] = useState(_Modal_initial);
+  const { currentUser } = useContext(globalContext);
 
   useEffect(() => {
-    console.log("trigerrrrrrred_____");
+    console.log("TasList useEffect trigerrrrrrred_____");
     // turn2Calculator(new Date(), 30);
     turn2Calculator(
       CustomUtil.formatTimelessDate(new Date().toDateString()),
@@ -47,11 +49,12 @@ function TaskList() {
       Adding reoccuring tasks to EVENTS here.
       This wouldn't be needed with a real db as tasks would already be added there.
     */
-    getCreateTasks(calDate);
+    getCreateTasks(calDate, currentUser.roomKey);
 
     ele_arr = EVENTS.filter((ele) => {
-      /* filter only events for that day */
-      return getTasksforDay(calDate, true, ele);
+      /* filter only events for that day
+      Setting true here instead of passing item, cuz we want to filter ele_arr before mapping */
+      return getTasksforDay(calDate, true, ele, currentUser.roomKey);
     }).map((event) => {
       const item = (
         <div
@@ -62,7 +65,12 @@ function TaskList() {
         </div>
       );
 
-      const hasEvents = getTasksforDay(calDate, item, event);
+      const hasEvents = getTasksforDay(
+        calDate,
+        item,
+        event,
+        currentUser.roomKey
+      );
 
       return hasEvents;
     });

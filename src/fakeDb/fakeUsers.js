@@ -5,9 +5,7 @@ export const FAKE_USERS = [
     profileImg: null,
     points: 0,
     assignedPoints: 0,
-    lastLogin: new Date(
-      "Thu Sep 16 2021 01:00:00 GMT-0700 (Pacific Daylight Time)"
-    ).toDateString(),
+    roomKey: "rom1",
   },
   {
     id: 2,
@@ -15,9 +13,7 @@ export const FAKE_USERS = [
     profileImg: null,
     points: 0,
     assignedPoints: 0,
-    lastLogin: new Date(
-      "Fri Sep 10 2021 01:00:00 GMT-0700 (Pacific Daylight Time)"
-    ).toDateString(),
+    roomKey: "rom1",
   },
   {
     id: 3,
@@ -25,8 +21,22 @@ export const FAKE_USERS = [
     profileImg: null,
     points: 0,
     assignedPoints: 0,
-    lastLogin: new Date(
-      "Wed Oct 06 2021 01:00:00 GMT-0700 (Pacific Daylight Time)"
-    ).toDateString(),
+    roomKey: "rom1",
+  },
+  {
+    id: 4,
+    username: "Room User 1",
+    profileImg: null,
+    points: 0,
+    assignedPoints: 0,
+    roomKey: null,
+  },
+  {
+    id: 5,
+    username: "Room User 2",
+    profileImg: null,
+    points: 0,
+    assignedPoints: 0,
+    roomKey: "rom2",
   },
 ];

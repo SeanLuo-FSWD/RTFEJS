@@ -6,6 +6,7 @@ import ErrorPg from "../pages/ErrorPg/ErrorPg";
 import useGet from "../../server_api/useGet";
 import ProtectedRoute from "./ProtectedRoute";
 import HomePg from "../pages/HomePg/HomePg";
+import CommunityPg from "../pages/CommunityPg/CommunityPg";
 import { globalContext } from "../../store/context/globalContext";
 import CalendarPg from "../pages/Calendar/CalendarPg";
 import { FAKE_USERS } from "../../fakeDb/fakeUsers";
@@ -31,19 +32,14 @@ function Router() {
 
     /* To be moved to login, once connected to the db */
 
-    setCurrentUser(FAKE_USERS[0]);
+    setCurrentUser(FAKE_USERS[3]);
   }, []);
 
   useEffect(() => {
     FAKE_USERS.forEach((u) => {
-      console.log("??????");
       u.assignedPoints = 0;
       EVENTS.forEach((e) => {
-        console.log(e); //assignees: null
         // need to set the past assignees as well. Can we abstract this out? May not be able to match calendar or home view as they are future looking, this one is not view dependent, but date(today) dependent.
-        console.log(
-          "e.duration[0]_bbbbbbbbbbbbbbbbbb_new Date().toDateString()"
-        );
         if (
           e.assignees[0].id === u.id &&
           new Date(e.duration[0]).getTime() <
@@ -72,6 +68,12 @@ function Router() {
           <ProtectedRoute
             path="/users"
             Component={UsersPg}
+            isAuth={currentUser}
+          />
+
+          <ProtectedRoute
+            path="/community"
+            Component={CommunityPg}
             isAuth={currentUser}
           />
 
