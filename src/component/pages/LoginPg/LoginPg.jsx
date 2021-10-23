@@ -3,10 +3,6 @@ import { globalContext } from "../../../store/context/globalContext";
 import { Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { server_api } from "../../../env.config";
-import LocalLoginForm from "./localLoginForm";
-
-import '../../../../node_modules/antd/dist/antd.css';
-import LocalRegisterForm from "./localRegisterForm";
 
 function LoginPg() {
   const { currentUser } = useContext(globalContext);
