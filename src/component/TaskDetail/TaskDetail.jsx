@@ -67,9 +67,17 @@ function TaskModal({
       return e.id === eve.assignees[0].id;
     });
 
-    user.points = newState
-      ? user.points + eve.points
-      : user.points - eve.points;
+    // user.points = newState
+    //   ? user.points + eve.points
+    //   : user.points - eve.points;
+
+    if (newState) {
+      user.points = user.points + eve.points;
+      user.assignedPoints = user.assignedPoints + eve.points;
+    } else {
+      user.points = user.points - eve.points;
+      user.assignedPoints = user.assignedPoints - eve.points;
+    }
 
     console.log("cccccccccccccccccccc");
     console.log(FAKE_USERS);

@@ -10,7 +10,6 @@ import { globalContext } from "../../store/context/globalContext";
 import CalendarPg from "../pages/Calendar/CalendarPg";
 import { FAKE_USERS } from "../../fakeDb/fakeUsers";
 import { EVENTS } from "../../fakeDb/events";
-import createTasksByDateRange from "../../helpers/createTasksByDateRange";
 import CustomUtil from "../../helpers/CustomUtil";
 
 import UsersPg from "../pages/UsersPg/UsersPg";
@@ -31,9 +30,11 @@ function Router() {
     /* Checking and create any missed PASSED tasks since last login */
 
     /* To be moved to login, once connected to the db */
-    createTasksByDateRange();
-    console.log("EVENTS_aaaaaaaaaaaaaaaaaaaaaaaa");
-    console.log(EVENTS.length);
+
+    setCurrentUser(FAKE_USERS[0]);
+  }, []);
+
+  useEffect(() => {
     FAKE_USERS.forEach((u) => {
       console.log("??????");
       u.assignedPoints = 0;
@@ -52,9 +53,7 @@ function Router() {
         }
       });
     });
-
-    setCurrentUser(FAKE_USERS[0]);
-  }, []);
+  });
 
   return (
     <BrowserRouter>

@@ -29,7 +29,7 @@ export const TASK_TEMPLATES = [
         "Thu Sep 16 2021 01:00:00 GMT-0700 (Pacific Daylight Time)"
       ).toDateString()
     ),
-    points: 10,
+    points: 12,
     color: "lightcoral",
   },
 ];

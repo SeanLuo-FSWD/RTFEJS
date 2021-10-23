@@ -1,4 +1,5 @@
 import { EVENTS } from "../fakeDb/events";
+import { FAKE_USERS } from "../fakeDb/fakeUsers";
 import getDaysFromDate from "./getDaysFromDate";
 import { EVENTS_DRAFT } from "../store/stateless/event_draft";
 import CustomUtil from "./CustomUtil";
