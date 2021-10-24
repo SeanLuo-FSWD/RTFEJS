@@ -32,7 +32,7 @@ function Router() {
 
     /* To be moved to login, once connected to the db */
 
-    setCurrentUser(FAKE_USERS[3]);
+    setCurrentUser(FAKE_USERS[0]);
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-export const server_url = "http://localhost:8000/";
+export const server_url = "http://localhost:8080/";
 // export const server_url = "http://rmtlab-env.eba-vprm97ju.us-east-2.elasticbeanstalk.com/";
 
 // export const server_url =
