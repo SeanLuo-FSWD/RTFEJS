@@ -7,10 +7,11 @@ let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of to
 export const EVENTS = [
   {
     id: createEventId(),
-    roomKey: "rom1",
-    title: "Passed event",
-    type: "once",
-    description: "first event description here",
+    roomKey: "rom1" /* Not needed, as will be inferred via user */,
+    title: "Passed event" /* Not needed, as will be inferred via template_id */,
+    type: "once" /* Not needed, as will be inferred via template_id */,
+    description:
+      "first event description here" /* Not needed, as will be inferred via template_id */,
     duration: [
       CustomUtil.formatTimelessDate(
         new Date(
@@ -24,11 +25,13 @@ export const EVENTS = [
         ).toDateString(),
         true
       ),
-    ],
-    assignees: [{ id: FAKE_USERS[0].id, username: FAKE_USERS[0].username }],
-    points: 15,
-    completed: false,
-    color: "yellow",
+    ] /* m2m - date & event_date */,
+    assignees: [
+      { id: FAKE_USERS[0].id, username: FAKE_USERS[0].username },
+    ] /* Not needed, as will be inferred via user_id */,
+    points: 15 /* Not needed, as will be inferred via template_id */,
+    completed: false /* status */,
+    color: "yellow" /* Not needed, as will be inferred via user_id */,
   },
   {
     id: createEventId(),

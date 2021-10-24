@@ -5,7 +5,7 @@ export const FAKE_USERS = [
     profileImg: null,
     points: 0,
     assignedPoints: 0,
-    roomKey: "rom1",
+    roomKey: "rom1" /* room_id */,
   },
   {
     id: 2,
