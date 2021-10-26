@@ -17,7 +17,7 @@ function Router() {
   useEffect(() => {
 
     // (development ENV with undefined or false AUTH) disable auth, otherwise use auth
-    (process.env.NODE_ENV === "development" && !process.env.REACT_APP_AUTH)
+    (process.env.NODE_ENV === "development" && process.env.REACT_APP_AUTH !== "true")
       ? setCurrentUser(FAKE_USERS[1])
       : doGet("auth/authenticate", (res) => {
         if (res) {
