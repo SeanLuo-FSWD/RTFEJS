@@ -1,3 +1,30 @@
 .ReactModal__Overlay {
   z-index: 9;
 }
+
+.left {
+  background-color: #dbdbfa;
+  position: absolute;
+  left: 0px;
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.left img {
+  display: block;
+  margin: auto;
+}
+
+.right {
+  position: absolute;
+  right: 0px;
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.form {
+  display: block;
+  margin: auto;
+}

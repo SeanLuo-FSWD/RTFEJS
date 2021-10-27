@@ -9,6 +9,8 @@ import HomePg from "../pages/HomePg/HomePg";
 import { globalContext } from "../../store/context/globalContext";
 import CalendarPg from "../pages/Calendar/CalendarPg";
 import { FAKE_USERS } from "../../fakeDb/fakeUsers";
+import Register from "../pages/Register/Register"
+import Profile from "../pages/Register/Profile"
 
 function Router() {
   const { currentUser, setCurrentUser } = useContext(globalContext);
@@ -32,6 +34,8 @@ function Router() {
         <Switch>
           <Route path="/error" component={ErrorPg} />
           <Route path="/login" component={LoginPg} />
+          <Route path="/register" component={Register} />
+          <Route path="/profile" component={Profile} />
 
           <ProtectedRoute
             path="/calendar"
