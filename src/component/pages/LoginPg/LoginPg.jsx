@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { globalContext } from "../../../store/context/globalContext";
 import { Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { server_url } from "../../../env.config";
+import { server_api } from "../../../env.config";
 import { FAKE_USERS } from "../../../fakeDb/fakeUsers";
 import { EVENTS } from "../../../fakeDb/events";
 
@@ -20,7 +20,7 @@ function LoginPg() {
     //   });
     // });
 
-    window.open(`${server_url}api/auth/google`, "_self");
+    window.open(`${server_api}auth/google`, "_self");
   };
 
   if (currentUser) {

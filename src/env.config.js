@@ -3,4 +3,4 @@ export const server_url = "http://localhost:8080/";
 
 // export const server_url =
 //   "http://rmtlab-env-stage.us-east-2.elasticbeanstalk.com/";
-export const server_api = `${server_url}api/`;
+export const server_api = `${server_url}v1/`;

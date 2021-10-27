@@ -12,7 +12,7 @@ const useGet = () => {
 
       .then((response) => {
         // set_postData(response.data);
-        console.log(path + " doGet : response.data");
+        console.log(`${server_api}${path}` + " doGet : response.data");
         console.log(response.data);
         if (cb) {
           cb(response.data);

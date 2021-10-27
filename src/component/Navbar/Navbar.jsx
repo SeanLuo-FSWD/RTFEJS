@@ -28,6 +28,9 @@ function Navbar() {
       <Link to="/users">
         <p>Users</p>
       </Link>
+      <Link to="/profile">
+        <p>Profile</p>
+      </Link>
       <button onClick={handleLogout}>logout</button>
     </div>
   );

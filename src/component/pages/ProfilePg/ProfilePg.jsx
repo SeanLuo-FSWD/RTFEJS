@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { server_url } from "../../../env.config";
+import ImageUtil from "../../../helpers/ImageUtil";
 import usePostForm from "../../../server_api/usePostForm";
 import { globalContext } from "../../../store/context/globalContext";
 
@@ -24,25 +25,29 @@ function ProfilePg() {
 
       src_arr.push(img_src);
     });
+
     setFiles({ src_arr, file_arr });
   }
 
-  const postSubmit = (e) => {
+  const postSubmit = async (e) => {
     e.preventDefault();
 
-    let bodyFormData = new FormData();
+    // let bodyFormData = new FormData();
 
-    if (Files && Files.file_arr.length > 0) {
-      for (let i = 0; i < Files.file_arr.length; i++) {
-        bodyFormData.append("filesToUpload[]", Files.file_arr[i]);
-      }
-    }
-    src_arr = [];
-    file_arr = [];
+    // if (Files && Files.file_arr.length > 0) {
+    //   for (let i = 0; i < Files.file_arr.length; i++) {
+    //     bodyFormData.append("filesToUpload[]", Files.file_arr[i]);
+    //   }
+    // }
+    // src_arr = [];
+    // file_arr = [];
 
-    doPostForm("other/image", bodyFormData, (data) => {
-      setCurrentUser({ ...currentUser, profileImg: data.profileImg });
-    });
+    // doPostForm("other/image", bodyFormData, (data) => {
+    //   setCurrentUser({ ...currentUser, profileImg: data.profileImg });
+    // });
+
+    let profileImg = await ImageUtil.updatePhoto(Files.file_arr[0]);
+    setCurrentUser({ ...currentUser, profileImg });
   };
 
   return (

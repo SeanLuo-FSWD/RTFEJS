@@ -14,6 +14,7 @@ import { EVENTS } from "../../fakeDb/events";
 import CustomUtil from "../../helpers/CustomUtil";
 
 import UsersPg from "../pages/UsersPg/UsersPg";
+import ProfilePg from "../pages/ProfilePg/ProfilePg";
 
 function Router() {
   const { currentUser, setCurrentUser } = useContext(globalContext);
@@ -68,6 +69,12 @@ function Router() {
           <ProtectedRoute
             path="/users"
             Component={UsersPg}
+            isAuth={currentUser}
+          />
+
+          <ProtectedRoute
+            path="/profile"
+            Component={ProfilePg}
             isAuth={currentUser}
           />
 
