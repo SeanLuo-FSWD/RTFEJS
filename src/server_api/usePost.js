@@ -7,6 +7,7 @@ const usePost = () => {
   const [doErrorCatcher] = useErrorCatcher();
 
   const doPost = (path, dto, cb) => {
+    console.log("dopost - path : " + path);
     axios
       .post(`${server_api}${path}`, dto, { withCredentials: true })
       .then((response) => {

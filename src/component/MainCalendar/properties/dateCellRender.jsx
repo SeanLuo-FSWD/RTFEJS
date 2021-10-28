@@ -8,7 +8,7 @@ import _ from "lodash";
 import getTasksforDay from "../../../helpers/getTasksforDay";
 import { globalContext } from "../../../store/context/globalContext";
 
-const DateCellRender = (date, setModal) => {
+const DateCellRender = (date, setModal, addDates, Events) => {
   const { currentUser } = useContext(globalContext);
   const calDate = CustomUtil.formatTimelessDate(date._d.toDateString());
 
@@ -19,7 +19,9 @@ const DateCellRender = (date, setModal) => {
   */
   getCreateTasks(calDate, currentUser.roomKey);
 
-  ele_arr = EVENTS.map((ele) => {
+  addDates(calDate);
+
+  ele_arr = Events.map((ele) => {
     const item = (
       <div
         style={{ backgroundColor: ele.color, border: "thin solid black" }}
